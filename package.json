@@ -1,0 +1,22 @@
+{
+  "name": "backproyecto2web",
+  "version": "1.0.0",
+  "description": "Repositorio con el back del proyecto 2 de Web, supongo que será temporal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jframos29/backProyecto2Web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jframos29/backProyecto2Web/issues"
+  },
+  "homepage": "https://github.com/jframos29/backProyecto2Web#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

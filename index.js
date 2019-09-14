@@ -4,7 +4,7 @@ const user = require('./user')
 const parche = require('./parche')
 const mongo = require("./mongo")
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 3000;
 
 
 
@@ -43,6 +43,6 @@ app.get("/data", (req, res) => {
 app.use("/usuario", user)
 app.use("/parche", parche)
 
-app.listen(PORT, () => {
-  console.log(`My app is running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`My app is running at http://0.0.0.0:${PORT}`);
 });

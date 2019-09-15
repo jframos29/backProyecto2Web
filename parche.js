@@ -28,7 +28,7 @@ router.get("/libres", function (req, res) {
   //}
 })
 
-router.post("/registrarUsuario", function(req, res){
+router.post("/registrarUsuario", mongo.checkAuth, function(req, res){
   //if(req.session.userId){
   mongo.registrarUsuarioParche(req.body,req.header("idUsuario"),res);
   //}
@@ -37,7 +37,7 @@ router.post("/registrarUsuario", function(req, res){
   //}
 })
 
-router.get("/usuariosParche", function (req, res) {
+router.get("/usuariosParche", mongo.checkAuth,function (req, res) {
   //if(req.session.userId){
   mongo.usuariosParche(req.header("nombreParche"),req.header("idAdmin"), res);
   //}
@@ -46,7 +46,7 @@ router.get("/usuariosParche", function (req, res) {
   //}
 })
 
-router.get("/verInfoParche", function (req, res) {
+router.get("/verInfoParche", mongo.checkAuth, function (req, res) {
   //if(req.session.userId){
   mongo.busquedaParche(req.header("nombreParche"),req.header("idAdmin"), res);
   //}

@@ -10,10 +10,8 @@ router.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// define the home page route
-
 // define the about route
-router.get("/verInfoUsuario", function (req, res) {
+router.get("/verInfoUsuario", mongo.checkAuth, function (req, res) {
   //if (req.session.userId) {
     const idUser = req.header("idUsuario");
     mongo.busquedaUsuario(idUser, res);
@@ -23,7 +21,7 @@ router.get("/verInfoUsuario", function (req, res) {
   //}
 });
 
-router.get("/misParches", function (req, res) {
+router.get("/misParches", mongo.checkAuth, function (req, res) {
   //if (req.session.userId) {
     const idUser = req.header("idUsuario");
     mongo.parchesUsuario(idUser, res);
@@ -33,7 +31,7 @@ router.get("/misParches", function (req, res) {
   //}
 })
 
-router.post("/registrarParche", function (req, res) {
+router.post("/registrarParche", mongo.checkAuth, function (req, res) {
   //if (req.session.userId) {
     const idUser = req.header("idUsuario");
     const body = req.body;

@@ -420,10 +420,10 @@ const login = function (body, res, req) {
           console.log(user);
           req.session.userId = user._id;
           req.headers["idUsuario"]=user.idUsuario;
-          req.pipe(request("../usuario/verInfoUsuario")).pipe(res);
+          res.send(user);
         }
         else {
-          res.redirect("./");
+          res.send("Bad user/pass");
         }}
       );
     });
@@ -487,7 +487,16 @@ const verLibres = function (nombreParche, idAdmin, hora, res) {
   });
 }
 
+function checkAuth(req, res, next) {
+  if (!req.session.user_id) {
+    res.send("You are not authorized to view this page");
+  } else {
+    next();
+  }
+}
+
 module.exports = {
+  checkAuth : checkAuth,
   busquedaUsuario: busquedaUsuario,
   parchesUsuario: parchesUsuario,
   busquedaParche: busquedaParche,

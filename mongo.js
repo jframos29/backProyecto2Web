@@ -424,8 +424,7 @@ const login = function (body, res, req) {
         console.log(result);
         if (result === true) {
           console.log(user);
-          req.session.userId = user._id;
-          req.headers["idUsuario"]=user.idUsuario;
+          req.session.userId = user.idUsuario;
           res.send(user);
         }
         else {

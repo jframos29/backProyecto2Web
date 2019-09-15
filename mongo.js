@@ -418,7 +418,7 @@ const login = function (body, res, req) {
       else{
       if (err) throw err;
       const user = resp[0];
-      bcrypt.compare(body.password, user.contrasena, function (err, result) {
+      bcrypt.compare(body.contrasena, user.contrasena, function (err, result) {
         console.log(result);
         if (result === true) {
           console.log(user);

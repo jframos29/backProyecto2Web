@@ -13,7 +13,7 @@ router.get("/calendarioEspecifico", function (req, res) {
 });
 
 router.post("/modificarCalendario", function(req, res){
-  mongo.modificarCalendario(req.body, req.header("idUsuario"), res);
+  mongo.modificarCalendario(req.body.calendario, req.header("idUsuario"), res);
 });
 
 module.exports = router;

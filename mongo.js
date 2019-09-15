@@ -29,6 +29,7 @@ const modificarCalendario = function (calendario, idUser, res) {
       if (err) throw err;
       if (result.length === 0) {
         res.send("El usuario no existe");
+        client.close();
       }
       else {
         const obj = result[0];
@@ -100,12 +101,14 @@ const registrarUsuarioParche = function (body, idUser, res) {
       if (err) throw err;
       if (result1.length === 0) {
         res.send("El usuario a agregar no existe");
+        client.close();
       }
       else {
-        col.find({ "nombreParche": nombreParche, "idAdmin": idUser }).toArray((err, result) => {
+        col.find({ "nombreParche": nombreParche, "idAdminParche": idUser }).toArray((err, result) => {
           if (err) throw err;
           if (result.length === 0) {
             res.send("No esta autorizado");
+            client.close();
           }
           else {
             const obj = result[0];
@@ -114,7 +117,7 @@ const registrarUsuarioParche = function (body, idUser, res) {
             });
             if (typeof (found) === "undefined") {
               obj.integrantes.push(idUsuario);
-              col.replaceOne({ "nombreParche": nombreParche, "idAdmin": idUser }, obj, (err) => {
+              col.replaceOne({ "nombreParche": nombreParche, "idAdminParche": idUser }, obj, (err) => {
                 if (err) throw err;
                 const col2 = db.collection("usuarios");
                 col2.find({ "idUsuario": idUsuario }).toArray((err, result) => {
@@ -134,7 +137,8 @@ const registrarUsuarioParche = function (body, idUser, res) {
               });
             }
             else {
-              res.send("El usuario ya está en el parche")
+              res.send("El usuario ya está en el parche");
+              client.close();
             }
           }
         });
@@ -151,7 +155,7 @@ const busquedaParche = function (nombreParche, idAdmin, res) {
     if (err) throw err;
     const db = client.db("ufree");
     const col = db.collection("parches");
-    col.find({ "nombreParche": nombreParche, "idAdmin": idAdmin }).toArray((err, result) => {
+    col.find({ "nombreParche": nombreParche, "idAdminParche": idAdmin }).toArray((err, result) => {
       if (err) throw err;
       res.send(result);
       client.close();
@@ -167,7 +171,7 @@ const usuariosParche = function (nombreParche, idAdmin, res) {
     if (err) throw err;
     const db = client.db("ufree");
     const col = db.collection("parches");
-    col.find({ "nombreParche": nombreParche, "idAdmin": idAdmin }).toArray((err, result) => {
+    col.find({ "nombreParche": nombreParche, "idAdminParche": idAdmin }).toArray((err, result) => {
       if (err) throw err;
       const newResult = result.map((element) => {
         return element.integrantes
@@ -191,17 +195,29 @@ const registrarParche = function (idUser, body, res) {
       if (err) throw err;
       if (!(result.length === 0)) {
         res.send("Error: El parche ya existe");
+        client.close();
       }
       else {
         const arrIntegrantes = [idUser];
         body.idAdminParche = idUser;
         body.integrantes = arrIntegrantes;
-
         col.insert(body, function (err) {
           if (err) throw err;
-          res.send("Parche agregado");
-          client.close();
-          recalcularLibres(nombreParche, idUser);
+          const col2 = db.collection("usuarios");
+          col2.find({ "idUsuario": idUser }).toArray((err, result) => {
+            if (err) throw err;
+            const obj2 = result[0];
+            obj2.parches.push({
+              "nombreParche": nombreParche,
+              "idAdmin": idUser
+            })
+            col2.replaceOne({ "idUsuario": idUser }, obj2, (err) => {
+              if (err) throw err;
+              res.send("Parche agregado");
+              recalcularLibres(nombreParche, idUser);
+              client.close();
+            });
+          });
         });
       }
     });
@@ -221,6 +237,7 @@ const registrarUsuario = function (body, res) {
       if (err) throw err;
       if (!(result.length === 0)) {
         res.send("Error: El usuario ya existe");
+        client.close();
       }
       else {
         body.parches = [];
@@ -247,17 +264,20 @@ const borrarParche = function (nombreParche, idUser, res) {
       if (err) throw err;
       if (result1.length === 0) {
         res.send("El usuario a eliminar no existe");
+        client.close();
       }
       else {
-        col.find({ "nombreParche": nombreParche, "idAdmin": idUser }).toArray((err, result) => {
+        col.find({ "nombreParche": nombreParche, "idAdminParche": idUser }).toArray((err, result) => {
           if (err) throw err;
           if (result.length === 0) {
             res.send("No esta autorizado");
+            client.close();
           }
           else {
             const obj = result[0];
-            if (obj.integrantes.length != 0) {
-              res.send("El administrador de un parche no puede irse de un parche no vacío")
+            if (obj.integrantes.length >= 2) {
+              res.send("El administrador de un parche no puede irse de un parche no vacío");
+              client.close();
             }
             else {
               const found = obj.integrantes.find(function (element) {
@@ -265,9 +285,10 @@ const borrarParche = function (nombreParche, idUser, res) {
               });
               if (typeof (found) === "undefined") {
                 res.send("El usuario no está en el parche");
+                client.close();
               }
               else {
-                col.deleteOne({ "nombreParche": nombreParche, "idAdmin": idUser }, (err) => {
+                col.deleteOne({ "nombreParche": nombreParche, "idAdminParche": idUser }, (err) => {
                   if (err) throw err;
                   else {
                     const col2 = db.collection("usuarios");
@@ -309,18 +330,21 @@ const eliminarUsuarioParche = function (body, idUser, res) {
       if (err) throw err;
       if (result1.length === 0) {
         res.send("El usuario a eliminar no existe");
+        client.close();
       }
       else {
-        col.find({ "nombreParche": nombreParche, "idAdmin": idUser }).toArray((err, result) => {
+        col.find({ "nombreParche": nombreParche, "idAdminParche": idUser }).toArray((err, result) => {
           if (err) throw err;
           if (result.length === 0) {
             res.send("No esta autorizado");
+            client.close();
           }
           else {
             const obj = result[0];
             if (idUsuario === idUser) {
-              if (obj.integrantes.length != 0) {
-                res.send("El administrador de un parche no puede irse de un parche no vacío")
+              if (obj.integrantes.length >= 2) {
+                res.send("El administrador de un parche no puede irse de un parche no vacío");
+                client.close();
               }
               else {
                 borrarParche(nombreParche, idUser, res);
@@ -332,12 +356,13 @@ const eliminarUsuarioParche = function (body, idUser, res) {
               });
               if (typeof (found) === "undefined") {
                 res.send("El usuario no está en el parche");
+                client.close();
               }
               else {
                 obj.integrantes = obj.integrantes.filter((elemento) => {
                   return (!(elemento === idUsuario))
                 });
-                col.replaceOne({ "nombreParche": nombreParche, "idAdmin": idUser }, obj, (err) => {
+                col.replaceOne({ "nombreParche": nombreParche, "idAdminParche": idUser }, obj, (err) => {
                   if (err) throw err;
                   else {
                     const col2 = db.collection("usuarios");
@@ -370,7 +395,7 @@ const login = function (body, res) {
   const password = body.password;
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.send(""+username+" "+password);
+  res.send("" + username + " " + password);
 }
 
 const recalcularLibres = function (nombreParche, idAdmin) {
@@ -380,25 +405,28 @@ const recalcularLibres = function (nombreParche, idAdmin) {
     const db = client.db("ufree");
     const col = db.collection("parches");
     const col2 = db.collection("usuarios");
-    col.find({ "nombreParche": nombreParche, "idAdmin": idAdmin }).toArray((err, result) => {
-      const obj = result[0];
-      obj.libres = new Array(1008).fill(undefined);
-      obj.integrantes.forEach(element => {
-        col2.find({ "idUsuario": element }).toArray((err, result) => {
-          if (err) throw err;
-          const obj2 = result[0];
-          for (let i = 0; i < 1008; ++i) {
-            if (obj2.calendario[i] === 1) {
-              if (typeof (obj.libres[i]) === "undefined") {
-                let arr = [];
-                arr.push(element);
-                obj.libres[i] = arr;
-              }
-              else {
-                obj.libres[i].push(element);
-              }
+    col.find({ "nombreParche": nombreParche, "idAdminParche": idAdmin }).toArray((err, result) => {
+      if (err) throw err;
+      let obj = result[0];
+      col2.find({ "idUsuario": { $in: obj.integrantes } }).toArray((err, result) => {
+        let t=new Array(1008);
+        for(let i =0; i<1008; ++i){
+          t[i]=[];
+        }
+        if (err) throw err;
+        result.forEach((obj2) => {
+          let y = 0;
+          obj2.calendario.forEach((ele) => {
+            if (ele == 1) {
+              t[y].push(obj2.idUsuario);
             }
-          }
+            y++;
+          });
+        });
+        obj.libres = t;
+        col.replaceOne({ "nombreParche": nombreParche, "idAdminParche": idAdmin }, obj, (err) => {
+          if (err) throw err;
+          client.close();
         });
       });
     });
@@ -413,14 +441,14 @@ const verLibres = function (nombreParche, idAdmin, hora, res) {
     if (err) throw err;
     const db = client.db("ufree");
     const col = db.collection("parches");
-    col.find({ "nombreParche": nombreParche, "idAdmin": idAdmin }).toArray((err, result) => {
+    col.find({ "nombreParche": nombreParche, "idAdminParche": idAdmin }).toArray((err, result) => {
       if (err) throw err;
       if (!(result.length === 0)) {
         const obj = result[0];
         res.send(obj.libres[hora]);
       }
       else {
-        res.send("Error: No existe el parche")
+        res.send("Error: No existe el parche");
       }
       client.close();
     });

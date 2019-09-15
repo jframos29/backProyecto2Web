@@ -25,7 +25,6 @@ router.get("/misParches", function (req, res) {
 
 router.post("/registrarParche", function (req, res) {
   const idUser=req.header("idUsuario");
-  console.log(req.body);
   const body = req.body;
   mongo.registrarParche(idUser, body, res)
 })

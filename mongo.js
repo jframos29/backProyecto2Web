@@ -412,6 +412,10 @@ const login = function (body, res, req) {
     const db = client.db("ufree");
     const col = db.collection("usuarios");
     col.find({"idUsuario":body.idUsuario}).toArray((err, resp) => {
+      if(resp.length==0){
+        res.send("El usuario no existe");
+      }
+      else{
       if (err) throw err;
       const user = resp[0];
       bcrypt.compare(body.password, user.contrasena, function (err, result) {
@@ -425,7 +429,7 @@ const login = function (body, res, req) {
         else {
           res.send("Bad user/pass");
         }}
-      );
+      );}
     });
   });
 }

@@ -13,7 +13,9 @@ app.use(cors());
 app.use(session({
   secret: "work hard",
   resave: true,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie:{httpOnly: false,
+  domain: "idUsuario"}
 }));
 
 app.use(express.static(path.join(__dirname, "front/build")));

@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, "front/build")));
 
 app.use("/usuario", user);
 app.use("/parche", parche);
+
 app.use("/login", login);
 
 app.get("/", (req, res) => {

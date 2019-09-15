@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({
 
 // define the about route
 router.post("/", function (req, res) {
-  mongo.login(req,res);
+  mongo.login(req.body,res);
 })
 
 router.post("/registrar", (req, res) =>{

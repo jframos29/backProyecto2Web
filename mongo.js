@@ -343,8 +343,10 @@ const eliminarUsuarioParche = function (body, idUser, res) {
   });
 };
 
-const login = function (req, res) {
-
+const login = function (body, res) {
+  const username = body.username;
+  const password = body.password;
+  res.send(""+username+" "+password);
 }
 
 const recalcularLibres = function (nombreParche, idAdmin) {

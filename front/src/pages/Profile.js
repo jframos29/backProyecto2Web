@@ -110,7 +110,7 @@ function Profile() {
             }
         };
         var array=[];
-          axios.get('http://ufree.herokuapp.com/usuario/misParches',  headers)
+          axios.get('http://localhost:5000/usuario/misParches',  headers)
           .then((res) => {
             console.log("RESPONSE RECEIVED: ", res);
             console.log("RESPONSE RECEIVED: ", res.data);

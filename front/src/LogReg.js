@@ -60,7 +60,7 @@ let jsonString = [
   }
 ]
 var obj = JSON.stringify(jsonString);
-axios.post(`https://ufree.herokuapp.com/login`, { obj })
+axios.post(`http://ufree.herokuapp.com/login/`, { obj })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -80,7 +80,7 @@ handleSubmitSignUp(event) {
     }
   ]
   var obj = JSON.stringify(jsonString);
-  axios.post(`https://ufree.herokuapp.com/login/registrar`, { obj })
+  axios.post(`http://ufree.herokuapp.com/login/registrar`, { obj })
         .then(res => {
           console.log(res);
           console.log(res.data);

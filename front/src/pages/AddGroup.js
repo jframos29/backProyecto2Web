@@ -30,7 +30,7 @@ let jsonString = [
   }
 ]
 var obj = JSON.stringify(jsonString);
-axios.post(`https://ufree.herokuapp.com/usuario/registrarParche`, { obj })
+axios.post(`http://localhost:5000/usuario/registrarParche`, { obj })
       .then(res => {
         console.log(res);
         console.log(res.data);

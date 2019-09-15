@@ -1,4 +1,4 @@
-var express = require('express')
+var express = require("express")
 
 var router = express.Router()
 const bodyParser=require("body-parser");
@@ -11,12 +11,12 @@ router.use(bodyParser.urlencoded({
 }));
 
 // define the about route
-router.post('/', function (req, res) {
-
+router.post("/", function (req, res) {
+  mongo.login(req,res);
 })
 
 router.post("/registrar", (req, res) =>{
-
+  mongo.registrarUsuario(req.body, res);
 })
 
 module.exports = router;

@@ -1,4 +1,4 @@
-var express = require('express')
+var express = require("express")
 var router = express.Router()
 const bodyParser=require("body-parser");
 const calendario = require("./calendario");
@@ -13,17 +13,17 @@ router.use(bodyParser.urlencoded({
 // define the home page route
 
 // define the about route
-router.get('/verInfoUsuario', function (req, res) {
+router.get("/verInfoUsuario", function (req, res) {
   const idUser=req.header("idUsuario");
   mongo.busquedaUsuario(idUser, res);
 });
 
-router.get('/misParches', function (req, res) {
+router.get("/misParches", function (req, res) {
   const idUser=req.header("idUsuario");
   mongo.parchesUsuario(idUser, res);
 })
 
-router.post('/registrarParche', function (req, res) {
+router.post("/registrarParche", function (req, res) {
   const idUser=req.header("idUsuario");
   console.log(req.body);
   const body = req.body;

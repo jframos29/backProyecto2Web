@@ -1,5 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
+const bcrypt = require("bcrypt");
 const url = "mongodb://admin:password123@ds141815.mlab.com:41815/ufree";
+const request = require("request");
 
 const busquedaUsuario = function (value, res) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -240,12 +242,23 @@ const registrarUsuario = function (body, res) {
         client.close();
       }
       else {
-        body.parches = [];
-        col.insert(body, function (err) {
-          if (err) throw err;
-          res.send("Usuario agregado");
+        if (body.contrasena !== body.contrasenaConf) {
+          res.send("Las contraseñas no coinciden");
           client.close();
-        });
+        }
+        else {
+          body.parches = [];
+          bcrypt.hash(body.contrasena, 10, function (err, hash) {
+            if (err) throw err;
+            body.contrasena = hash;
+            delete body["contrasenaConf"];
+            col.insert(body, function (err) {
+              if (err) throw err;
+              res.send("Usuario agregado");
+              client.close();
+            });
+          });
+        }
       }
     });
   });
@@ -390,12 +403,31 @@ const eliminarUsuarioParche = function (body, idUser, res) {
   });
 };
 
-const login = function (body, res) {
-  const username = body.username;
-  const password = body.password;
+const login = function (body, res, req) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.send("" + username + " " + password);
+  const client = new MongoClient(url);
+  client.connect((err) => {
+    if (err) throw err;
+    const db = client.db("ufree");
+    const col = db.collection("usuarios");
+    col.find({"idUsuario":body.idUsuario}).toArray((err, resp) => {
+      if (err) throw err;
+      const user = resp[0];
+      bcrypt.compare(body.password, user.contrasena, function (err, result) {
+        console.log(result);
+        if (result === true) {
+          console.log(user);
+          req.session.userId = user._id;
+          req.headers["idUsuario"]=user.idUsuario;
+          req.pipe(request("../usuario/verInfoUsuario")).pipe(res);
+        }
+        else {
+          res.redirect("./");
+        }}
+      );
+    });
+  });
 }
 
 const recalcularLibres = function (nombreParche, idAdmin) {
@@ -409,9 +441,9 @@ const recalcularLibres = function (nombreParche, idAdmin) {
       if (err) throw err;
       let obj = result[0];
       col2.find({ "idUsuario": { $in: obj.integrantes } }).toArray((err, result) => {
-        let t=new Array(1008);
-        for(let i =0; i<1008; ++i){
-          t[i]=[];
+        let t = new Array(1008);
+        for (let i = 0; i < 1008; ++i) {
+          t[i] = [];
         }
         if (err) throw err;
         result.forEach((obj2) => {

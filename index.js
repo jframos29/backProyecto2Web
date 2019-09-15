@@ -2,11 +2,18 @@ const express = require("express");
 const user = require("./user");
 const parche = require("./parche");
 const login = require("./login");
-var cors = require("cors");
+const cors = require("cors");
+const session = require("express-session");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+app.use(session({
+  secret: "work hard",
+  resave: true,
+  saveUninitialized: false
+}));
 
 app.use("/usuario", user);
 app.use("/parche", parche);

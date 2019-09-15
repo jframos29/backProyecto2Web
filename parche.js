@@ -10,23 +10,49 @@ router.use(bodyParser.urlencoded({
 
 // define the home page route
 router.delete("/eliminarUsuario", function (req, res) {
-  mongo.eliminarUsuarioParche(req.body,req.header("idUsuario"),res);
+  //if(req.session.userId){
+    mongo.eliminarUsuarioParche(req.body,req.header("idUsuario"),res);
+  //}
+  //else{
+    //res.redirect("../../login");
+  //}
+
 })
 // define the about route
 router.get("/libres", function (req, res) {
-  mongo.verLibres(req.header("nombreParche"),req.header("idAdmin"),req.header("hora"), res);
+  //if(req.session.userId){
+    mongo.verLibres(req.header("nombreParche"),req.header("idAdmin"),req.header("hora"), res);
+  //}
+  //else{
+    //res.redirect("../../login");
+  //}
 })
 
 router.post("/registrarUsuario", function(req, res){
+  //if(req.session.userId){
   mongo.registrarUsuarioParche(req.body,req.header("idUsuario"),res);
+  //}
+  //else{
+    //res.redirect("../../login");
+  //}
 })
 
 router.get("/usuariosParche", function (req, res) {
+  //if(req.session.userId){
   mongo.usuariosParche(req.header("nombreParche"),req.header("idAdmin"), res);
+  //}
+  //else{
+    //res.redirect("../../login");
+  //}
 })
 
 router.get("/verInfoParche", function (req, res) {
+  //if(req.session.userId){
   mongo.busquedaParche(req.header("nombreParche"),req.header("idAdmin"), res);
+  //}
+  //else{
+    //res.redirect("../../login");
+  //}
 })
 
 module.exports = router;

@@ -17,14 +17,17 @@
   },
   "homepage": "https://github.com/jframos29/backProyecto2Web#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cookie-session": "^1.3.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "mongodb": "^3.3.2",
     "nodemon": "^1.19.2",
     "passport": "^0.4.0",
-    "passport-google-oauth": "^2.0.0"
+    "passport-google-oauth": "^2.0.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "eslint": "^6.3.0"

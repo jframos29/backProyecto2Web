@@ -411,6 +411,7 @@ const login = function (body, res, req) {
     if (err) throw err;
     const db = client.db("ufree");
     const col = db.collection("usuarios");
+    console.log(body.idUsuario);
     col.find({"idUsuario":body.idUsuario}).toArray((err, resp) => {
       if(resp.length==0){
         res.send("El usuario no existe");

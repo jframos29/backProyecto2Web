@@ -1,0 +1,8 @@
+#toLeft {
+    position: relative;
+    float: left;
+}
+#toRight {
+    position: relative;
+    float: right;
+}

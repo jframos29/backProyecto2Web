@@ -421,7 +421,6 @@ const login = function (body, res, req) {
       if (err) throw err;
       const user = resp[0];
       bcrypt.compare(body.contrasena, user.contrasena, function (err, result) {
-        console.log(result);
         if (result === true) {
           console.log(user);
           req.session.userId = user.idUsuario;

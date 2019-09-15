@@ -14,8 +14,7 @@ app.use(session({
   secret: "work hard",
   resave: true,
   saveUninitialized: false,
-  cookie:{httpOnly: false,
-  domain: "idUsuario"}
+  cookie:{httpOnly: false}
 }));
 
 app.use(express.static(path.join(__dirname, "front/build")));

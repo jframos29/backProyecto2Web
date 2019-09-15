@@ -19,7 +19,7 @@ function App() {
       <Route path="/" component={Header} />
       <Route path="/" component={Home} exact />
       <Route path="/myProfile" component={Profile}  />
-      <Route path="/login" component={LogReg}  />
+      <Route path="/ingreso" component={LogReg}  />
       <Route path="/groups/{id}" component={Group}  />
       <Route path="/addGroup" component={AddGroup}  />
       <Route path="/myCalendar" component={Calendar}  />

@@ -73,7 +73,7 @@ class  UFree extends React.Component {
             }
         };
         var array=[];
-          axios.get('http://ufree.herokuapp.com/parche/libres',  headers)
+          axios.get('http://localhost:5000/parche/libres',  headers)
           .then((res) => {
             res.data.forEach(element => {
                 array.push(String(element))
@@ -115,7 +115,7 @@ class  UFree extends React.Component {
             }
         };
 
-          axios.get('http://ufree.herokuapp.com/usuario/misParches',  headers)
+          axios.get('http://localhost:5000/usuario/misParches',  headers)
           .then((res) => {
             res.data.forEach(element => {
                 element.forEach(element2 => {

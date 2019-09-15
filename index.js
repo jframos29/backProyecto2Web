@@ -2,8 +2,11 @@ const express = require("express");
 const user = require("./user");
 const parche = require("./parche");
 const login = require("./login");
+var cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 app.use("/usuario", user);
 app.use("/parche", parche);

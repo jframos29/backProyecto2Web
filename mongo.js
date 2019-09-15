@@ -2,6 +2,8 @@ const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://admin:password123@ds141815.mlab.com:41815/ufree";
 
 const busquedaUsuario = function (value, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -16,6 +18,8 @@ const busquedaUsuario = function (value, res) {
 };
 
 const modificarCalendario = function (calendario, idUser, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -44,6 +48,8 @@ const modificarCalendario = function (calendario, idUser, res) {
 
 
 const parchesUsuario = function (value, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -61,6 +67,8 @@ const parchesUsuario = function (value, res) {
 };
 
 const calendarioUsuario = function (value, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -78,6 +86,8 @@ const calendarioUsuario = function (value, res) {
 };
 
 const registrarUsuarioParche = function (body, idUser, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -134,6 +144,8 @@ const registrarUsuarioParche = function (body, idUser, res) {
 };
 
 const busquedaParche = function (nombreParche, idAdmin, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -148,6 +160,8 @@ const busquedaParche = function (nombreParche, idAdmin, res) {
 };
 
 const usuariosParche = function (nombreParche, idAdmin, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -165,6 +179,8 @@ const usuariosParche = function (nombreParche, idAdmin, res) {
 };
 
 const registrarParche = function (idUser, body, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const nombreParche = body.nombreParche;
   const client = new MongoClient(url);
   client.connect((err) => {
@@ -193,6 +209,8 @@ const registrarParche = function (idUser, body, res) {
 }
 
 const registrarUsuario = function (body, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const nombreUsuario = body.idUsuario;
   const client = new MongoClient(url);
   client.connect((err) => {
@@ -217,6 +235,8 @@ const registrarUsuario = function (body, res) {
 }
 
 const borrarParche = function (nombreParche, idUser, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -275,6 +295,8 @@ const borrarParche = function (nombreParche, idUser, res) {
 }
 
 const eliminarUsuarioParche = function (body, idUser, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;
@@ -384,6 +406,8 @@ const recalcularLibres = function (nombreParche, idAdmin) {
 }
 
 const verLibres = function (nombreParche, idAdmin, hora, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   const client = new MongoClient(url);
   client.connect((err) => {
     if (err) throw err;

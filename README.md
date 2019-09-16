@@ -32,6 +32,6 @@ The user can directly visit the website (hosted in HerokuApp) on http://ufree.he
 
 ## License
 
-This project is under MIT license (found [here]())
+This project is under MIT license (found [here](https://github.com/jframos29/backProyecto2Web/blob/master/LICENSE))
 
 

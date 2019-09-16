@@ -1,3 +1,4 @@
+“use strict”
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require("bcrypt");
 const url = "mongodb://admin:password123@ds141815.mlab.com:41815/ufree";

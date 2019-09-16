@@ -21,7 +21,7 @@ router.get("/verInfoUsuario", mongo.checkAuth, function (req, res) {
   //}
 });
 
-router.get("/misParches", mongo.checkAuth, function (req, res) {
+router.get("/misParches", function (req, res) {
   //if (req.session.userId) {
     const idUser = req.header("idUsuario");
     mongo.parchesUsuario(idUser, res);

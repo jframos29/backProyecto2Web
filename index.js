@@ -25,6 +25,7 @@ app.use("/parche", parche);
 app.use("/login", login);
 
 app.get("/", (req, res) => {
+  //Eliminado innecesario
   res.send("Back-end de UFree");
 });
 

@@ -2,9 +2,9 @@
 
 ## Authors
 
-* Juan Felipe Ramos ([Github]())
+* Juan Felipe Ramos ([Github](https://github.com/jframos29))
 
-* Daniela Rocha ([Github]())
+* Daniela Rocha ([Github](https://github.com/DanielaRocha6))
 
 ## Description
 This repository contains the source code of the Proyect Ufree. In this project, Daniela Rocha Torres and I, Juan Felipe Ramos, tried to help those groups of friends that want to know which of its members are available in a specific range of time.
@@ -14,11 +14,11 @@ The user can directly visit the website (hosted in HerokuApp) on http://ufree.he
 
 ## Screenshot
 
-![Drag Racing](Dragster.jpg)
+![Screenshot](https://github.com/jframos29/backProyecto2Web/blob/master/Captura.PNG)
 
-![Drag Racing](Dragster.jpg)
+![Screenshot](https://github.com/jframos29/backProyecto2Web/blob/master/Captura2.PNG)
 
-![Drag Racing](Dragster.jpg)
+![Screenshot](https://github.com/jframos29/backProyecto2Web/blob/master/Captura3.PNG)
 
 
 ## Technologies

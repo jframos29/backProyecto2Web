@@ -31,7 +31,7 @@ router.get("/misParches", function (req, res) {
   //}
 })
 
-router.post("/registrarParche", mongo.checkAuth, function (req, res) {
+router.post("/registrarParche", function (req, res) {
   //if (req.session.userId) {
     const idUser = req.header("idUsuario");
     const body = req.body;

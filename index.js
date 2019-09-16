@@ -25,8 +25,6 @@ app.use("/parche", parche);
 app.use("/login", login);
 
 app.get("/", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.send("Back-end de UFree");
 });
 

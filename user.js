@@ -1,5 +1,7 @@
-var express = require("express")
-var router = express.Router()
+//Acá es preferible usar const y no var, var está deprecado, además es recomendable usar el modo strict.
+“use strict”
+const express = require("express")
+const router = express.Router()
 const bodyParser = require("body-parser");
 const calendario = require("./calendario");
 const mongo = require("./mongo");

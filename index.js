@@ -1,14 +1,14 @@
 const express = require("express");
 const user = require("./user");
 const parche = require("./parche");
-const login = require("./login");
-const cors = require("cors");
+// const login = require("./login");
+// const cors = require("cors");
 const session = require("express-session");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const path = require("path");
 
-app.use(cors());
+// app.use(cors());
 
 app.use(session({
   secret: "work hard",
